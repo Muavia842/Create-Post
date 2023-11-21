@@ -25,7 +25,6 @@ function Login({ setIsAuth }) {
       >
         Welcome to Create-Post <span>Muavia Haidri</span>
       </h2>
-      {/* <h1>Sign In With Google to Continue</h1> */}
       <button className="login-with-google-btn" onClick={signInwithGoogle}>
         Sign in With Google
       </button>
