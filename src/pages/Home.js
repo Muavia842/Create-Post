@@ -19,41 +19,70 @@ function Home({ IsAuth }) {
     await deleteDoc(postDoc);
   };
   return (
-    <div className="homePage">
-      {postLists.map((post) => {
-        return (
-          <div className="post">
-            <div className="postHeader">
-              <div
-                style={{ display: 'flex', alignItems: 'center', gap: '15px' }}
-              >
-                <img
-                  style={{
-                    width: '60px',
-                    height: '60px',
-                    borderRadius: '300px',
-                  }}
-                  src={post.author.photo}
-                />
-                <h3>{post.author.name}</h3>
+    <div>
+      {IsAuth ? (
+        <div className="homePage">
+          {postLists.map((post) => {
+            return (
+              <div className="post">
+                <div className="postHeader">
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '15px',
+                    }}
+                  >
+                    <img
+                      style={{
+                        width: '60px',
+                        height: '60px',
+                        borderRadius: '300px',
+                      }}
+                      src={post.author.photo}
+                    />
+                    <h3>{post.author.name}</h3>
+                  </div>
+                  <div className="deletePost">
+                    {IsAuth &&
+                      auth.currentUser &&
+                      post.author.id === auth.currentUser.uid && (
+                        <button onClick={() => deletePost(post.id)}>
+                          <RiDeleteBinLine />
+                        </button>
+                      )}
+                  </div>
+                </div>
+                <div className="title">
+                  <h1>{post.title}</h1>
+                </div>
+                <div className="postTextContainer">{post.postText}</div>
               </div>
-              <div className="deletePost">
-                {IsAuth &&
-                  auth.currentUser &&
-                  post.author.id === auth.currentUser.uid && (
-                    <button onClick={() => deletePost(post.id)}>
-                      <RiDeleteBinLine />
-                    </button>
-                  )}
-              </div>
-            </div>
-            <div className="title">
-              <h1>{post.title}</h1>
-            </div>
-            <div className="postTextContainer">{post.postText}</div>
-          </div>
-        );
-      })}
+            );
+          })}
+        </div>
+      ) : (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <h2
+            style={{
+              color: 'white',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '10px',
+              justifyContent: 'center',
+            }}
+          >
+            Welcome to Create-Post <span>Muavia Haidri</span>
+          </h2>
+        </div>
+      )}
     </div>
   );
 }
